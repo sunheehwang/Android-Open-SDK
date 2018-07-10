@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Chronometer;
@@ -106,6 +107,8 @@ public class StreamActivity extends AppCompatActivity implements RtmpHandler.Rtm
             startStopTextView.setText("STOP");
             mChronometer.setBase(SystemClock.elapsedRealtime());
             mChronometer.start();
+
+            //TODO : change the server address
             mPublisher.startPublish("rtmp://rtmp.streamaxia.com/streamaxia/" + streamaxiaStreamName);
         } else {
             startStopTextView.setText("START");
@@ -136,6 +139,9 @@ public class StreamActivity extends AppCompatActivity implements RtmpHandler.Rtm
         List<Size> sizes = mPublisher.getSupportedPictureSizes(getResources().getConfiguration().orientation);
         Size resolution = sizes.get(0);
         mPublisher.setVideoOutputResolution(resolution.width, resolution.height, this.getResources().getConfiguration().orientation);
+        //TODO: change the settings for video resolution and bitrate
+        //mPublisher.setVideoBitRate(bitrate);
+        //mPublisher.setVideoOutputResolution(height, width, Configuration.ORIENTATION_LANDSCAPE);
     }
 
     private void setStatusMessage(final String msg) {
@@ -149,9 +155,9 @@ public class StreamActivity extends AppCompatActivity implements RtmpHandler.Rtm
 
 
     /*
-    * EncoderHandler implementation
-    * You can use these callbacks to get events from the streamer
-    * */
+     * EncoderHandler implementation
+     * You can use these callbacks to get events from the streamer
+     * */
 
     @Override
     public void onNetworkWeak() {
@@ -170,8 +176,8 @@ public class StreamActivity extends AppCompatActivity implements RtmpHandler.Rtm
 
 
     /*
-    * RecordHandler implementation
-    * */
+     * RecordHandler implementation
+     * */
 
     @Override
     public void onRecordPause() {
@@ -204,8 +210,8 @@ public class StreamActivity extends AppCompatActivity implements RtmpHandler.Rtm
     }
 
     /*
-    * RTMPListener implementation
-    * */
+     * RTMPListener implementation
+     * */
 
     @Override
     public void onRtmpConnecting(String s) {
